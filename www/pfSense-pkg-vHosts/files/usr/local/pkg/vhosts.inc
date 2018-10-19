@@ -259,26 +259,14 @@ function vhosts_build_service_config() {
 }
 
 /*******************************************************************************
-* vhosts_dirty */
+* vhosts_is_dirty */
 /**
-* Sets/return vhosts subsystem dirty flag.
+* Returns true if vhosts subsystem dirty flag is set.
 *
-* @param  dirty  True/false to set/clear dirty flag, undef for no change.
-* @return		Returns new or current value of subsystem dirty flag.
-*
-* Config file setting: <service/startcmd>
+* Config file setting: <custom_php_service_status_command>
 *******************************************************************************/
-function vhosts_dirty($dirty) {
+function vhosts_is_dirty() {
 	global $vhosts_g;
-
-	if (isset($dirty)) {
-		if ($dirty) {
-			mark_subsystem_dirty($vhosts_g['subsystem_name']);
-		} else {
-			clear_subsystem_dirty($vhosts_g['subsystem_name']);
-		}
-	}
-
 	return is_subsystem_dirty($vhosts_g['subsystem_name']);
 }
 
@@ -347,11 +335,28 @@ function vhosts_save_config_and_exit() {
 	vhosts_build_service_config();
 
 	if (vhostsd_is_running()) {
-		vhosts_dirty(TRUE);
+		vhosts_set_dirty(TRUE);
 	}
 
 	header("Location: ?");
 	exit;
+}
+
+/*******************************************************************************
+* vhosts_set_dirty */
+/**
+* Sets vhosts subsystem dirty flag.
+*
+* @param  dirty  True/false to set/clear dirty flag.
+*******************************************************************************/
+function vhosts_set_dirty($dirty) {
+	global $vhosts_g;
+
+	if ($dirty) {
+		mark_subsystem_dirty($vhosts_g['subsystem_name']);
+	} else {
+		clear_subsystem_dirty($vhosts_g['subsystem_name']);
+	}
 }
 
 /*******************************************************************************

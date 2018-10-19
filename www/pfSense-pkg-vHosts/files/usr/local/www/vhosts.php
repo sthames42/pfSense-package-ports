@@ -312,7 +312,7 @@ else {
 
 	include("head.inc");
 
-	if (vhosts_dirty()) {
+	if (vhosts_is_dirty()) {
 		print_info_box(gettext('vHosts configuration has been changed. Restart service to apply changes.'));
 	}
 

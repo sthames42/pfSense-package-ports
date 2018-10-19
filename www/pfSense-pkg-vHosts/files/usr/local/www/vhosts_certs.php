@@ -118,7 +118,7 @@ if ($_POST) {
 		/*-------------------------------------------*/
 		/* Verify cert and key belong to each other. */
 		/*-------------------------------------------*/
-		if (cert_get_modulus($crt, false) != prv_get_modulus($key, false)) {
+		if (cert_get_publickey($crt, false) != cert_get_publickey($key, false, 'prv')) {
 			$input_errors[] = gettext("The private key does not match the certificate.");
 		}
 		/*------------------------------------------*/
@@ -334,7 +334,7 @@ else {
 
 	include("head.inc");
 
-	if (vhosts_dirty()) {
+	if (vhosts_is_dirty()) {
 		print_info_box(gettext('vHosts configuration has been changed. Restart service to apply changes.'));
 	}
 

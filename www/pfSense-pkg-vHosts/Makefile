@@ -7,7 +7,7 @@
 #*******************************************************************************
 
 PORTNAME=	pfSense-pkg-vHosts
-PORTVERSION=	1.0.0
+PORTVERSION=	1.0.1
 PORTREVISION=	0
 CATEGORIES=	www
 MASTER_SITES=	# empty
